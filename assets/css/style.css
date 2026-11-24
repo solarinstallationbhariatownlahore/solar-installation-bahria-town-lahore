@@ -103,7 +103,8 @@ strong { color: var(--white); }
 .header-inner { display: flex; align-items: center; gap: 28px; height: var(--header-h); min-width: 0; }
 .logo { display: flex; align-items: center; gap: 12px; color: var(--white); flex: none; }
 .logo:hover { color: var(--white); }
-.logo-mark { width: 46px; height: 46px; flex: none; filter: drop-shadow(0 4px 10px rgba(212, 175, 55, 0.35)); }
+.logo-mark { width: 54px; height: 54px; flex: none; border-radius: 50%; object-fit: cover; background: #fff; filter: drop-shadow(0 4px 10px rgba(212, 175, 55, 0.35)); }
+.site-footer .logo-mark { width: 72px; height: 72px; }
 .logo-text { line-height: 1.15; }
 .logo-text .name { font-family: var(--font-head); font-weight: 700; font-size: 1.02rem; display: block; letter-spacing: 0.01em; }
 .logo-text .tag { font-size: 0.68rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold); font-weight: 600; }

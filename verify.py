@@ -178,7 +178,7 @@ try:
     addr_bad = [p for p, b in bodies.items() if "Plaza 210" not in b and p not in ("404.html",)]
     check("address present (except 404)", not addr_bad, str(addr_bad) if addr_bad else "")
 
-    # 8. images: exist + valid JPEG
+    # 8. images: exist + valid JPEG (logo is PNG by design)
     from PIL import Image
     imgdir = os.path.join(ROOT, "assets/images")
     imgs = sorted(os.listdir(imgdir))
@@ -190,11 +190,14 @@ try:
         try:
             with Image.open(full) as pic:
                 pic.verify()
-                if pic.format != "JPEG":
+                if im == "logo.png":
+                    if pic.format != "PNG":
+                        bad_img.append((im, pic.format))
+                elif pic.format != "JPEG":
                     bad_img.append((im, pic.format))
         except Exception as e:
             bad_img.append((im, str(e)))
-    check("all images are valid JPEGs", not bad_img,
+    check("all images are valid (JPEG photos, PNG logo)", not bad_img,
           f"{len(imgs)} images, {total_kb//1024} KB total" + (f" — {bad_img}" if bad_img else ""))
     # every <img> src in pages exists
     missing_img = set()

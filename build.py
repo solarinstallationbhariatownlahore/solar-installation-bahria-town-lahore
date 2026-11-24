@@ -44,7 +44,7 @@ ADDRESS_SHORT = "Plaza 210, 1st Floor, Sector C, Tulip Commercial, Bahria Town, 
 GMB = "https://www.google.com/maps?cid=17411783398733912742"
 MAP_EMBED = ("https://maps.google.com/maps?q=Plaza%20210%2C%20Sector%20C%2C%20"
              "Tulip%20Commercial%2C%20Bahria%20Town%2C%20Lahore&z=15&output=embed")
-OG_IMAGE = "assets/images/modern-house-flat-roof-solar.jpg"
+OG_IMAGE = "assets/images/logo.png"
 
 SOCIAL = [
     ("Facebook", "https://web.facebook.com/solarinstallationbhariatownlahore1/",
@@ -65,19 +65,10 @@ SOCIAL = [
      '<path d="M16.6 3c.4 2 1.8 3.6 3.9 3.9v3c-1.5 0-2.9-.5-3.9-1.3v6.1c0 3.4-2.6 5.8-5.8 5.8A5.6 5.6 0 0 1 5 14.7c0-3.2 2.6-5.7 5.9-5.7.3 0 .7 0 1 .1v3.1c-.3-.1-.6-.2-1-.2-1.5 0-2.7 1.2-2.7 2.7 0 1.5 1.2 2.7 2.7 2.7 1.6 0 2.8-1.2 2.8-2.8V3h2.9z"/>'),
 ]
 
-LOGO_SVG = """<svg class="logo-mark" viewBox="0 0 64 64" aria-hidden="true">
-  <rect width="64" height="64" rx="14" fill="#0a1d33"/>
-  <circle cx="32" cy="26" r="11" fill="#D4AF37"/>
-  <g stroke="#D4AF37" stroke-width="3" stroke-linecap="round">
-    <line x1="32" y1="8" x2="32" y2="12"/><line x1="32" y1="36" x2="32" y2="40"/>
-    <line x1="14" y1="26" x2="18" y2="26"/><line x1="46" y1="26" x2="50" y2="26"/>
-    <line x1="19" y1="13" x2="22" y2="16"/><line x1="42" y1="36" x2="45" y2="39"/>
-    <line x1="45" y1="13" x2="42" y2="16"/><line x1="22" y1="36" x2="19" y2="39"/>
-  </g>
-  <g fill="#1677D2">
-    <rect x="14" y="46" width="10" height="7" rx="1"/><rect x="27" y="46" width="10" height="7" rx="1"/><rect x="40" y="46" width="10" height="7" rx="1"/>
-  </g>
-</svg>"""
+def logo_img(rel):
+    """Real business logo image (user-supplied)."""
+    return ('<img class="logo-mark" src="{rel}assets/images/logo.png" '
+            'alt="Solar Installation Bahria Town Lahore logo" width="54" height="54">').format(rel=rel)
 
 # -------------------------------------------------------------- helpers ---
 def abs_url(path):
@@ -108,7 +99,7 @@ def org_ld():
     }
     if SITE_URL:
         d["url"] = SITE_URL
-        d["logo"] = abs_url("favicon.svg")
+        d["logo"] = abs_url("assets/images/logo.png")
     return d
 
 def local_ld():
@@ -249,7 +240,7 @@ def header_html(rel, active):
   <a href="{tel}">Call {phone}</a>
   <a href="{wa}" target="_blank" rel="noopener">Chat on WhatsApp</a>
 </aside>""".format(
-        rel=rel, logo=LOGO_SVG, tel=PHONE_TEL, phone=PHONE_DISPLAY, wa=WA_LINK,
+        rel=rel, logo=logo_img(rel), tel=PHONE_TEL, phone=PHONE_DISPLAY, wa=WA_LINK,
         home=cls("home"), about=cls("about"), services=cls("services"),
         loc=cls("locations"), projects=cls("projects"), blog=cls("blog"),
         contact=cls("contact"), svc=svc_items, locs=loc_items,
@@ -317,7 +308,7 @@ def footer_html(rel):
 <div class="mobile-cta">
   <a class="btn btn-gold btn-sm" href="{tel}">Call Now</a>
   <a class="btn btn-blue btn-sm" href="{wa}" target="_blank" rel="noopener">WhatsApp Us</a>
-</div>""".format(rel=rel, logo=LOGO_SVG, addr=ADDRESS, tel=PHONE_TEL,
+</div>""".format(rel=rel, logo=logo_img(rel), addr=ADDRESS, tel=PHONE_TEL,
                  phone=PHONE_DISPLAY, wa=WA_LINK, gmb=GMB, biz=BUSINESS,
                  social=social_icons(), svc_links=svc_links)
 
@@ -390,7 +381,8 @@ def page(rel, path, title, desc, h1, body, schemas, active, og_image=None,
   <meta name="twitter:title" content="{title}">
   <meta name="twitter:description" content="{desc}">
   <meta name="twitter:image" content="{ogimg}">
-  <link rel="icon" type="image/svg+xml" href="{rel}favicon.svg">
+  <link rel="icon" type="image/png" href="{rel}assets/images/logo.png">
+  <link rel="apple-touch-icon" href="{rel}assets/images/logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@500;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
@@ -503,7 +495,7 @@ def gallery_html(rel):
         figs.append(
             '<figure data-cat="{code}"><img src="{rel}assets/images/{img}" alt="{cap} — illustrative image" '
             'loading="lazy" data-full="{rel}assets/images/{img}">'
-            '<figcaption>{cap}<small>Illustrative image</small></figcaption></figure>'
+            '<figcaption>{cap} <small>— Illustrative image</small></figcaption></figure>'
             .format(rel=rel, img=img, cap=cap, code=code))
     return """<div class="gallery-filters" role="group" aria-label="Filter projects">
   <button class="filter-btn active" data-filter="all">All</button>
@@ -770,7 +762,7 @@ def build_home():
     schemas = [org_ld(), local_ld(), website_ld(), faq_ld(FAQS),
                breadcrumb_ld([("Home", None)])]
     return page(rel, "index.html",
-                "Solar Installation in Bahria Town Lahore | Solar Installation Bahria Town Lahore",
+                "Solar Installation in Bahria Town Lahore",
                 "Premium solar installation services in Bahria Town Lahore — residential & commercial solar, hybrid, on-grid and off-grid systems. Free consultation: 03200147783.",
                 "Solar Installation in Bahria Town Lahore", body, schemas, "home", is_home=True)
 
@@ -838,8 +830,8 @@ def build_about():
     schemas = [org_ld(), local_ld(),
                breadcrumb_ld([("Home", "index.html"), ("About Us", None)])]
     return page(rel, "about.html",
-                "About Us | Solar Installation Bahria Town Lahore",
-                "About Solar Installation Bahria Town Lahore — a local solar energy company providing residential and commercial solar installation, system planning and professional installation.",
+                "About Us — Solar Installation Bahria Town Lahore",
+                "About Solar Installation Bahria Town Lahore — a local solar energy company for residential and commercial solar installation and system planning.",
                 "About Us", body, schemas, "about",
                 hero_img="assets/images/aerial-home-solar-panels.jpg",
                 hero_sub="A local solar energy company in Bahria Town Lahore, helping homes and businesses make better use of solar energy.",
@@ -896,7 +888,7 @@ def build_services():
                      "Tell us about your property and how you use electricity — we will help you choose the right solar solution.")
     schemas = [org_ld(), breadcrumb_ld([("Home", "index.html"), ("Services", None)])]
     return page(rel, "services.html",
-                "Solar Installation Services | Solar Installation Bahria Town Lahore",
+                "Solar Installation Services in Bahria Town Lahore",
                 "Solar installation services in Bahria Town Lahore — residential & commercial solar, hybrid, on-grid and off-grid systems, panel, inverter and battery installation.",
                 "Solar Installation Services", body, schemas, "services",
                 hero_img="assets/images/solar-panel-installation-worker.jpg",
@@ -946,7 +938,7 @@ def build_service_pages():
     pages = {}
     pages["residential-solar-installation.html"] = service_page(
         rel, "residential-solar-installation.html",
-        "Residential Solar Installation Bahria Town Lahore | Solar Installation Bahria Town Lahore",
+        "Residential Solar Installation Bahria Town Lahore",
         "Residential solar installation in Bahria Town Lahore — solar systems for houses planned around your load, roof and daily usage. Free consultation: 03200147783.",
         "Residential Solar Installation",
         "assets/images/residential-rooftop-solar-panels.jpg",
@@ -976,7 +968,7 @@ def build_service_pages():
          ("All Solar Services", "services.html")])
     pages["commercial-solar-installation.html"] = service_page(
         rel, "commercial-solar-installation.html",
-        "Commercial Solar Installation Bahria Town Lahore | Solar Installation Bahria Town Lahore",
+        "Commercial Solar Installation Bahria Town Lahore",
         "Commercial solar installation in Bahria Town Lahore — solar planning for shops, offices and commercial buildings. Free consultation: 03200147783.",
         "Commercial Solar Installation",
         "assets/images/commercial-rooftop-solar-panels.jpg",
@@ -1006,7 +998,7 @@ def build_service_pages():
          ("All Solar Services", "services.html")])
     pages["hybrid-solar-systems.html"] = service_page(
         rel, "hybrid-solar-systems.html",
-        "Hybrid Solar Systems in Bahria Town Lahore | Solar Installation Bahria Town Lahore",
+        "Hybrid Solar Systems in Bahria Town Lahore",
         "Hybrid solar systems in Bahria Town Lahore — solar panels, inverter and battery storage working together. Free consultation: 03200147783.",
         "Hybrid Solar Systems",
         "assets/images/hybrid-inverter-battery-system.jpg",
@@ -1035,7 +1027,7 @@ def build_service_pages():
          ("On-Grid Solar Systems", "on-grid-solar-systems.html")])
     pages["on-grid-solar-systems.html"] = service_page(
         rel, "on-grid-solar-systems.html",
-        "On-Grid Solar Systems in Bahria Town Lahore | Solar Installation Bahria Town Lahore",
+        "On-Grid Solar Systems in Bahria Town Lahore",
         "On-grid solar systems in Bahria Town Lahore — grid-connected solar for daytime generation. Free consultation: 03200147783.",
         "On-Grid Solar Systems",
         "assets/images/solar-panels-field-sunset.jpg",
@@ -1064,8 +1056,8 @@ def build_service_pages():
          ("Hybrid vs On-Grid Solar Systems", "blog/hybrid-vs-on-grid-solar-systems.html")])
     pages["off-grid-solar-systems.html"] = service_page(
         rel, "off-grid-solar-systems.html",
-        "Off-Grid Solar Systems in Bahria Town Lahore | Solar Installation Bahria Town Lahore",
-        "Off-grid solar systems in Bahria Town Lahore — independent solar with battery storage for properties without a reliable grid connection. Free consultation: 03200147783.",
+        "Off-Grid Solar Systems in Bahria Town Lahore",
+        "Off-grid solar systems in Bahria Town Lahore — independent solar with battery storage for properties without a reliable grid connection.",
         "Off-Grid Solar Systems",
         "assets/images/solar-array-field.jpg",
         "An independent solar system with battery storage, designed to operate without a grid connection.",
@@ -1093,7 +1085,7 @@ def build_service_pages():
          ("All Solar Services", "services.html")])
     pages["solar-panel-installation.html"] = service_page(
         rel, "solar-panel-installation.html",
-        "Solar Panel Installation Bahria Town Lahore | Solar Installation Bahria Town Lahore",
+        "Solar Panel Installation Bahria Town Lahore",
         "Solar panel installation in Bahria Town Lahore — professional panel mounting and installation for homes and businesses. Free consultation: 03200147783.",
         "Solar Panel Installation",
         "assets/images/solar-panel-installation-worker.jpg",
@@ -1119,7 +1111,7 @@ def build_service_pages():
          ("How to Choose Solar Panels", "blog/how-to-choose-solar-panels.html")])
     pages["solar-inverter-installation.html"] = service_page(
         rel, "solar-inverter-installation.html",
-        "Solar Inverter Installation Bahria Town Lahore | Solar Installation Bahria Town Lahore",
+        "Solar Inverter Installation Bahria Town Lahore",
         "Solar inverter installation in Bahria Town Lahore — inverter selection, installation and configuration for your system. Free consultation: 03200147783.",
         "Solar Inverter Installation",
         "assets/images/solar-inverter-battery-wall.jpg",
@@ -1145,7 +1137,7 @@ def build_service_pages():
          ("Solar Panel Installation", "solar-panel-installation.html")])
     pages["solar-battery-solutions.html"] = service_page(
         rel, "solar-battery-solutions.html",
-        "Solar Battery Solutions in Bahria Town Lahore | Solar Installation Bahria Town Lahore",
+        "Solar Battery Solutions in Bahria Town Lahore",
         "Solar battery solutions in Bahria Town Lahore — battery storage for evenings and outages, sized to your needs. Free consultation: 03200147783.",
         "Solar Battery Solutions",
         "assets/images/hybrid-inverter-battery-system.jpg",
@@ -1235,8 +1227,8 @@ def build_bahria_location():
                breadcrumb_ld([("Home", "index.html"), ("Locations", None),
                               ("Solar Installation in Bahria Town Lahore", None)])]
     return page(rel, "solar-installation-bahria-town-lahore.html",
-                "Solar Installation in Bahria Town Lahore | Sectors A–F | Solar Installation Bahria Town Lahore",
-                "Solar installation in Bahria Town Lahore — residential & commercial solar across Sectors A–F and the Overseas enclave. Local office in Sector C, Tulip Commercial. Free consultation: 03200147783.",
+                "Solar Installation Bahria Town Lahore — Sectors A to F",
+                "Solar installation in Bahria Town Lahore — residential & commercial solar across Sectors A–F and the Overseas enclave. Free consultation.",
                 "Solar Installation in Bahria Town Lahore", body, schemas, "locations",
                 hero_img="assets/images/modern-house-flat-roof-solar.jpg",
                 hero_sub="Residential and commercial solar installation across Sectors A to F and the Overseas enclave — from our office in Sector C, Tulip Commercial.",
@@ -1303,8 +1295,8 @@ def build_lahore_location():
                breadcrumb_ld([("Home", "index.html"), ("Locations", None),
                               ("Solar Installation in Lahore", None)])]
     return page(rel, "solar-installation-lahore.html",
-                "Solar Installation in Lahore | Solar Installation Bahria Town Lahore",
-                "Solar installation in Lahore — residential & commercial solar, hybrid, on-grid and off-grid systems, from our Bahria Town Lahore office. Free consultation: 03200147783.",
+                "Solar Installation in Lahore — Bahria Town Solar",
+                "Solar installation in Lahore — residential & commercial solar, hybrid, on-grid and off-grid systems from our Bahria Town office.",
                 "Solar Installation in Lahore", body, schemas, "locations",
                 hero_img="assets/images/aerial-home-solar-panels.jpg",
                 hero_sub="Solar installation services across Lahore — from our office in Bahria Town Lahore, serving homes and businesses throughout the city.",
@@ -1344,8 +1336,8 @@ def build_projects():
                      "Start with a free consultation — we will plan a system for your property and install it professionally.")
     schemas = [org_ld(), breadcrumb_ld([("Home", "index.html"), ("Projects", None)])]
     return page(rel, "projects.html",
-                "Our Projects | Solar Installation Bahria Town Lahore",
-                "Solar installation portfolio — residential rooftops, commercial roofs, hybrid systems and battery storage. Illustrative images; verified project photos added as work is completed.",
+                "Our Projects — Solar Installation Bahria Town Lahore",
+                "Solar installation portfolio — residential rooftops, commercial roofs, hybrid systems and battery storage. Illustrative images.",
                 "Our Projects", body, schemas, "projects",
                 hero_img="assets/images/rooftop-solar-panels-house.jpg",
                 hero_sub="Residential rooftops, commercial roofs, hybrid systems and battery storage — the kinds of installations we work on.",
@@ -1374,7 +1366,7 @@ BLOG_INDEX = [
      "Solar Batteries", "What batteries actually do, what capacity means in real life, and how to think about backup without overspending.",
      "assets/images/solar-inverter-battery-wall.jpg", "Solar battery storage with inverters"),
     ("solar-panel-maintenance", "Solar Panel Maintenance",
-     "Solar Maintenance", "Cleaning, checks and the simple habits that keep your panels performing well in Lahore's dust and heat.",
+     "Solar Maintenance", "Cleaning, checks and the simple habits that keep your panels performing well in Lahore's dust and summer heat — a practical maintenance guide.",
      "assets/images/solar-panel-installation-worker.jpg", "Installer working on rooftop solar panels"),
     ("solar-energy-for-pakistani-homes", "Solar Energy for Pakistani Homes",
      "Solar Energy", "Long sunny days, an unreliable grid and rising bills — why solar fits Pakistani homes, and which system type suits which household.",
@@ -1427,7 +1419,7 @@ def build_blog_index():
                      "Our guides cover the basics — but your home is specific. Contact us for a free consultation tailored to your property.")
     schemas = [org_ld(), breadcrumb_ld([("Home", "index.html"), ("Blog", None)])]
     html = page(rel, "blog.html",
-                "Blog & Solar Energy Guides | Solar Installation Bahria Town Lahore",
+                "Blog & Solar Energy Guides — Bahria Town Lahore",
                 "Solar energy guides for homeowners in Bahria Town Lahore — how solar works, hybrid vs on-grid systems, choosing panels, inverters, batteries and maintenance.",
                 "Blog & Solar Energy Guides", body, schemas, "blog",
                 hero_img="assets/images/solar-panels-sunset-field.jpg",
@@ -1558,8 +1550,8 @@ def build_contact():
     schemas = [org_ld(), local_ld(),
                breadcrumb_ld([("Home", "index.html"), ("Contact Us", None)])]
     return page(rel, "contact.html",
-                "Contact Us | Solar Installation Bahria Town Lahore",
-                "Contact Solar Installation Bahria Town Lahore — call or WhatsApp 03200147783, visit our office at Plaza 210, Sector C, Tulip Commercial, Bahria Town, Lahore, or send an enquiry via WhatsApp.",
+                "Contact Us — Solar Installation Bahria Town Lahore",
+                "Contact Solar Installation Bahria Town Lahore — call or WhatsApp 03200147783, or visit our office at Plaza 210, Sector C, Bahria Town.",
                 "Contact Us", body, schemas, "contact",
                 hero_img="assets/images/modern-villa-solar-panels-pool.jpg",
                 hero_sub="Call, WhatsApp, visit our office in Sector C, Tulip Commercial — or send an enquiry through the form.",
@@ -1590,7 +1582,7 @@ def build_privacy():
                      "Contact us for a free consultation — we are happy to explain anything about your solar options.")
     schemas = [org_ld(), breadcrumb_ld([("Home", "index.html"), ("Privacy Policy", None)])]
     return page(rel, "privacy-policy.html",
-                "Privacy Policy | Solar Installation Bahria Town Lahore",
+                "Privacy Policy — Solar Installation Bahria Town Lahore",
                 "Privacy policy for Solar Installation Bahria Town Lahore — what information the contact form collects and how enquiries are sent via WhatsApp.",
                 "Privacy Policy", body, schemas, "contact",
                 crumbs=[("Home", "index.html"), ("Privacy Policy", None)])
@@ -1623,7 +1615,7 @@ def build_terms():
                      "Contact us for a free consultation — we are happy to explain anything about your solar options.")
     schemas = [org_ld(), breadcrumb_ld([("Home", "index.html"), ("Terms and Conditions", None)])]
     return page(rel, "terms-and-conditions.html",
-                "Terms and Conditions | Solar Installation Bahria Town Lahore",
+                "Terms and Conditions — Solar Installation Bahria Town Lahore",
                 "Terms and conditions for Solar Installation Bahria Town Lahore — information accuracy, consultations, the WhatsApp contact form and photography.",
                 "Terms and Conditions", body, schemas, "contact",
                 crumbs=[("Home", "index.html"), ("Terms and Conditions", None)])
@@ -1646,7 +1638,7 @@ def build_404():
 """
     schemas = [org_ld()]
     return page(rel, "404.html",
-                "Page Not Found (404) | Solar Installation Bahria Town Lahore",
+                "Page Not Found — Solar Installation Bahria Town Lahore",
                 "The page you were looking for could not be found. Return to the Solar Installation Bahria Town Lahore homepage or explore our solar services.",
                 "Page Not Found", body, schemas, "home",
                 crumbs=[("Home", "index.html"), ("Page Not Found", None)])
@@ -1704,7 +1696,7 @@ def article_page(slug, title, cat, excerpt, image, alt, toc, body_html, related)
                      "Every home is different. Contact us for a free consultation and we will talk through the right solar options for your property.")
     schemas = [org_ld(), article_ld(title, excerpt, "blog/{}.html".format(slug), image, TODAY),
                breadcrumb_ld([("Home", "index.html"), ("Blog", "blog.html"), (title, None)])]
-    return page(rel, "blog/{}.html".format(slug), "{} | Solar Installation Bahria Town Lahore".format(title),
+    return page(rel, "blog/{}.html".format(slug), "{} — Bahria Town Solar".format(title),
                 excerpt, title, body, schemas, "blog",
                 og_image=image, hero_img=image,
                 hero_sub=excerpt,
@@ -1854,7 +1846,7 @@ def build_articles():
 
     articles["solar-panel-maintenance.html"] = article_page(
         "solar-panel-maintenance", "Solar Panel Maintenance", "Solar Maintenance",
-        "Cleaning, checks and the simple habits that keep your panels performing well in Lahore's dust and heat.",
+        "Cleaning, checks and the simple habits that keep your panels performing well in Lahore's dust and summer heat — a practical maintenance guide.",
         "assets/images/solar-panel-installation-worker.jpg", "Installer working on rooftop solar panels",
         [("why", "Why Maintenance Matters"), ("cleaning", "Cleaning Your Panels"),
          ("checks", "What to Check Regularly"), ("professional", "When to Call a Professional"),
