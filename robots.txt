@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://solarinstallationbhariatownlahore.github.io/solar-installation-bahria-town-lahore/sitemap.xml
