@@ -28,7 +28,7 @@
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; scroll-padding-top: calc(var(--header-h) + 12px); }
+html { scroll-behavior: smooth; scroll-padding-top: calc(var(--header-h) + 12px); overflow-x: hidden; }
 body {
   font-family: var(--font-body);
   background: var(--navy);
@@ -100,7 +100,7 @@ strong { color: var(--white); }
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
   backdrop-filter: blur(10px);
 }
-.header-inner { display: flex; align-items: center; gap: 28px; height: var(--header-h); }
+.header-inner { display: flex; align-items: center; gap: 28px; height: var(--header-h); min-width: 0; }
 .logo { display: flex; align-items: center; gap: 12px; color: var(--white); flex: none; }
 .logo:hover { color: var(--white); }
 .logo-mark { width: 46px; height: 46px; flex: none; filter: drop-shadow(0 4px 10px rgba(212, 175, 55, 0.35)); }
@@ -482,7 +482,17 @@ strong { color: var(--white); }
 }
 
 /* ---------- Responsive ---------- */
-@media (max-width: 1020px) {
+/* Mid-width screens (small laptops / large tablets): hide the header phone
+   number so logo + nav + WhatsApp button always fit — the number stays
+   reachable in the mobile drawer, the mobile call bar, the footer and the
+   contact page. */
+@media (max-width: 1320px) {
+  .header-phone { display: none; }
+  .header-inner { gap: 18px; }
+  .main-nav a { padding: 10px 10px; font-size: 0.92rem; }
+  .logo-text .name { font-size: 0.96rem; }
+}
+@media (max-width: 1180px) {
   .main-nav { display: none; }
   .menu-toggle { display: flex; margin-left: auto; }
   .header-phone { display: none; }

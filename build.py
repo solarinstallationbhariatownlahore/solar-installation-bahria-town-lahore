@@ -493,7 +493,7 @@ GALLERY = [
     ("commercial-rooftop-solar-panels.jpg", "Commercial rooftop solar installation", "Commercial", "commercial"),
     ("solar-installer-rooftop-work.jpg", "Installer working on a rooftop solar array", "Installation", "installation"),
     ("hybrid-inverter-battery-system.jpg", "Hybrid inverter with battery storage", "Hybrid Systems", "hybrid"),
-    ("solar-battery-storage-inverters.jpg", "Battery storage with inverters", "Hybrid Systems", "hybrid"),
+    ("solar-inverter-battery-wall.jpg", "Wall-mounted solar inverter and battery", "Hybrid Systems", "hybrid"),
     ("solar-panel-mounting-structure.jpg", "Solar panel mounting structure", "Installation", "installation"),
 ]
 
@@ -540,7 +540,7 @@ def build_home():
          "Installer fitting a solar panel on a roof", "Professional panel mounting and installation, positioned for your roof and sun exposure.", "solar-panel-installation.html"),
         ("Solar Inverter Installation", "assets/images/solar-inverter-battery-wall.jpg",
          "Wall-mounted solar inverter and battery", "Inverter selection, installation and configuration for your system type and load.", "solar-inverter-installation.html"),
-        ("Solar Battery Storage Solutions", "assets/images/solar-battery-storage-inverters.jpg",
+        ("Solar Battery Storage Solutions", "assets/images/solar-inverter-battery-wall.jpg",
          "Solar battery storage with inverters", "Battery storage that keeps essential power available when the sun goes down or the grid is off.", "solar-battery-solutions.html"),
     ]
     cards = "\n".join(service_card(rel, t, i, a, d, l) for t, i, a, d, l in svc)
@@ -863,7 +863,7 @@ def build_services():
          "Installer fitting a solar panel on a roof", "Professional panel mounting and installation.", "solar-panel-installation.html"),
         ("Solar Inverter Installation", "assets/images/solar-inverter-battery-wall.jpg",
          "Wall-mounted solar inverter and battery", "Inverter selection, installation and configuration.", "solar-inverter-installation.html"),
-        ("Solar Battery Storage Solutions", "assets/images/solar-battery-storage-inverters.jpg",
+        ("Solar Battery Storage Solutions", "assets/images/solar-inverter-battery-wall.jpg",
          "Solar battery storage with inverters", "Battery storage for evenings and outages.", "solar-battery-solutions.html"),
     ]
     body = """<section class="section">
@@ -1148,7 +1148,7 @@ def build_service_pages():
         "Solar Battery Solutions in Bahria Town Lahore | Solar Installation Bahria Town Lahore",
         "Solar battery solutions in Bahria Town Lahore — battery storage for evenings and outages, sized to your needs. Free consultation: 03200147783.",
         "Solar Battery Solutions",
-        "assets/images/solar-battery-storage-inverters.jpg",
+        "assets/images/hybrid-inverter-battery-system.jpg",
         "Battery storage that keeps essential power available when the sun goes down or the grid is off — sized honestly to your needs.",
         """<span class="eyebrow">Stored Energy</span>
       <h2>Solar Battery Storage in Bahria Town Lahore</h2>
@@ -1372,7 +1372,7 @@ BLOG_INDEX = [
      "assets/images/solar-inverter-battery-wall.jpg", "Wall-mounted solar inverter and battery"),
     ("solar-battery-storage-explained", "Solar Battery Storage Explained",
      "Solar Batteries", "What batteries actually do, what capacity means in real life, and how to think about backup without overspending.",
-     "assets/images/solar-battery-storage-inverters.jpg", "Solar battery storage with inverters"),
+     "assets/images/solar-inverter-battery-wall.jpg", "Solar battery storage with inverters"),
     ("solar-panel-maintenance", "Solar Panel Maintenance",
      "Solar Maintenance", "Cleaning, checks and the simple habits that keep your panels performing well in Lahore's dust and heat.",
      "assets/images/solar-panel-installation-worker.jpg", "Installer working on rooftop solar panels"),
@@ -1827,7 +1827,7 @@ def build_articles():
     articles["solar-battery-storage-explained.html"] = article_page(
         "solar-battery-storage-explained", "Solar Battery Storage Explained", "Solar Batteries",
         "What batteries actually do, what capacity means in real life, and how to think about backup without overspending.",
-        "assets/images/solar-battery-storage-inverters.jpg", "Solar battery storage with inverters",
+        "assets/images/solar-inverter-battery-wall.jpg", "Solar battery storage with inverters",
         [("what", "What a Solar Battery Does"), ("capacity", "Capacity: What the Numbers Mean"),
          ("types", "Battery Types"), ("sizing", "Sizing for Your Home"),
          ("life", "Lifespan and Replacement"), ("shedding", "Batteries and Load Shedding")],
