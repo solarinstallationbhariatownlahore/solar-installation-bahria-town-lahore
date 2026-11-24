@@ -44,7 +44,7 @@ ADDRESS_SHORT = "Plaza 210, 1st Floor, Sector C, Tulip Commercial, Bahria Town, 
 GMB = "https://www.google.com/maps?cid=17411783398733912742"
 MAP_EMBED = ("https://maps.google.com/maps?q=Plaza%20210%2C%20Sector%20C%2C%20"
              "Tulip%20Commercial%2C%20Bahria%20Town%2C%20Lahore&z=15&output=embed")
-OG_IMAGE = "assets/images/logo.png"
+OG_IMAGE = "assets/images/og-card.jpg"
 
 SOCIAL = [
     ("Facebook", "https://web.facebook.com/solarinstallationbhariatownlahore1/",
@@ -323,6 +323,39 @@ def cta_band(rel, heading, text):
   </div>
 </div></div></section>""".format(h=heading, t=text, tel=PHONE_TEL, wa=WA_LINK, rel=rel)
 
+
+_IMG_DIMS_CACHE = {}
+def add_img_dims(html):
+    """Add width/height to local <img> tags that lack them (CLS / Core Web Vitals)."""
+    from PIL import Image
+    def repl(m):
+        tag = m.group(0)
+        if 'width=' in tag or 'height=' in tag:
+            return tag
+        sm = re.search(r'src="([^"]+)"', tag)
+        if not sm:
+            return tag
+        src_path = sm.group(1)
+        if not src_path or src_path.startswith(("http", "data:", "#")):
+            return tag
+        rel_path = src_path.split("assets/images/", 1)[-1]
+        if "assets/images/" not in src_path:
+            return tag
+        full = os.path.join(ROOT, "assets/images", rel_path)
+        if not os.path.isfile(full):
+            return tag
+        if full not in _IMG_DIMS_CACHE:
+            try:
+                with Image.open(full) as im:
+                    _IMG_DIMS_CACHE[full] = im.size
+            except Exception:
+                return tag
+        w, h = _IMG_DIMS_CACHE[full]
+        if tag.rstrip().endswith("/>"):
+            return tag.rstrip()[:-2].rstrip() + ' width="{}" height="{}" />'.format(w, h)
+        return tag[:-1].rstrip() + ' width="{}" height="{}">'.format(w, h)
+    return re.sub(r'<img\b[^>]*>', repl, html)
+
 def page(rel, path, title, desc, h1, body, schemas, active, og_image=None,
          crumbs=None, hero_img=None, hero_sub=None, is_home=False):
     """Render one complete HTML page. `rel` is '' for root pages, '../' for blog/."""
@@ -344,7 +377,7 @@ def page(rel, path, title, desc, h1, body, schemas, active, og_image=None,
                       '<span class="sep">›</span> '.join(parts) + '</nav>')
     if is_home:
         hero = body  # home page supplies its own hero section
-        main_open = '<main>'
+        main_open = '<main id="main">'
     else:
         hero_img_tag = ""
         if hero_img:
@@ -358,7 +391,7 @@ def page(rel, path, title, desc, h1, body, schemas, active, og_image=None,
     {sub}
   </div>
 </section>
-<main>""".format(img=hero_img_tag, crumbs=crumb_html, h1=h1,
+<main id="main">""".format(img=hero_img_tag, crumbs=crumb_html, h1=h1,
                  sub=('<p>{}</p>'.format(hero_sub) if hero_sub else ""))
         body = hero + body
         main_open = ""
@@ -370,6 +403,8 @@ def page(rel, path, title, desc, h1, body, schemas, active, og_image=None,
   <title>{title}</title>
   <meta name="description" content="{desc}">
   <meta name="robots" content="index, follow">
+  <meta name="geo.region" content="PK-PB">
+  <meta name="geo.placename" content="Bahria Town Lahore, Lahore, Pakistan">
   {canon}
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="{biz}">
@@ -385,11 +420,12 @@ def page(rel, path, title, desc, h1, body, schemas, active, og_image=None,
   <link rel="apple-touch-icon" href="{rel}assets/images/logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@500;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@400;500;600;700&family=Manrope:wght@500;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{rel}assets/css/style.css">
 {schema}
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to main content</a>
 {header}
 {main_open}
 {body}
@@ -400,7 +436,7 @@ def page(rel, path, title, desc, h1, body, schemas, active, og_image=None,
 </html>""".format(title=title, desc=desc, canon=canon, biz=BUSINESS, ogurl=ogurl,
                   ogimg=ogimg, rel=rel, schema=schema_tags, header=header_html(rel, active),
                   main_open=main_open, body=body, footer=footer_html(rel))
-    return html
+    return add_img_dims(html)
 
 def write(path, content):
     full = os.path.join(ROOT, path)
@@ -408,6 +444,77 @@ def write(path, content):
     with open(full, "w", encoding="utf-8") as f:
         f.write(content)
     return path
+
+
+# FAQ content for service pages (grounded in the site's own articles; no
+# invented prices, lifespans or performance claims). Each service page gets
+# its own FAQ section + FAQPage schema.
+SERVICE_FAQS = {
+    "residential-solar-installation.html": [
+        ("How long does a residential solar installation take?",
+         "It depends on the size of the system and the condition of the roof. Most home systems are planned and installed over a few working days once the design is agreed. We confirm the schedule during the consultation, before any work begins."),
+        ("Will solar keep my home powered during load shedding?",
+         "A hybrid system with batteries provides backup power when the grid goes down. An on-grid system without batteries does not run during an outage. Which setup suits your home is decided during the consultation, based on how much backup you need."),
+        ("Is my roof suitable for solar panels?",
+         "Most houses in Bahria Town have flat or sloped roofs with good sun exposure, which suit solar panels well. During the consultation we check your roof's size, direction and shading before planning the system."),
+    ],
+    "commercial-solar-installation.html": [
+        ("Can solar power my shop or office completely?",
+         "It depends on your electricity load and how much of it falls in daylight hours. We plan commercial systems around your actual usage — shops, offices and other commercial properties each have a different pattern — and discuss what the system can cover during the consultation."),
+        ("Is net metering available for commercial properties?",
+         "Net metering is one of the services we offer. Whether it applies to your property and how the process works is discussed during the consultation, along with the system design."),
+        ("How is a commercial solar system planned?",
+         "We start by reviewing your electricity usage and your property — roof space, orientation and shading — then plan the panels, inverter and, where needed, batteries around it. You receive a plan for your property before any installation work begins."),
+    ],
+    "hybrid-solar-systems.html": [
+        ("What is a hybrid solar system?",
+         "A hybrid system combines solar panels with a grid connection and battery storage. It uses solar power during the day, stores extra energy in the batteries, and draws from the grid when needed."),
+        ("Does a hybrid system work during load shedding?",
+         "Yes. When the grid goes down, a hybrid system can run on battery power, so your essential appliances keep working. The amount of backup depends on the battery capacity and your load, which is planned during the consultation."),
+        ("Do hybrid systems always need batteries?",
+         "Yes — batteries are part of a hybrid setup. They store solar energy for the evening and provide backup during outages. The battery size is planned around your usage."),
+    ],
+    "on-grid-solar-systems.html": [
+        ("What is an on-grid solar system?",
+         "An on-grid system is connected to the electricity grid and has no batteries. It uses solar power during the day and draws from the grid at night or when the sun is not shining."),
+        ("Does an on-grid system work during load shedding?",
+         "No. When the grid goes down, an on-grid system shuts down — this is standard safety behaviour for grid-connected systems. If backup during outages matters to you, a hybrid system with batteries is the better choice."),
+        ("What is net metering?",
+         "Net metering lets extra solar electricity be exported to the grid. It is one of the services we offer; how it applies to your property is discussed during the consultation."),
+    ],
+    "off-grid-solar-systems.html": [
+        ("What is an off-grid solar system?",
+         "An off-grid system is completely independent of the electricity grid. It generates solar power and stores it in batteries, so it suits properties without a reliable grid connection."),
+        ("Who is an off-grid system for?",
+         "It is for properties without a reliable grid connection, or where independence from the grid is the priority. During the consultation we check whether off-grid is the right choice for your property."),
+        ("How much battery storage does an off-grid system need?",
+         "It depends on how much electricity you use and when you use it, especially in the evening and at night. Battery size is planned around your usage pattern during the consultation."),
+    ],
+    "solar-panel-installation.html": [
+        ("How are solar panels mounted on the roof?",
+         "Panels are mounted on a structure fixed to the roof, planned around the roof type, size, direction and shading. The mounting is part of the professional installation."),
+        ("Do solar panels need cleaning?",
+         "Yes. Dust on the panels blocks sunlight and reduces output, so simple cleaning and occasional checks keep them performing as they should. Our blog has a full guide on solar panel maintenance."),
+        ("How long do solar panels last?",
+         "Panel lifespan depends on the panel selected. Build quality, heat performance and warranty terms are all part of the discussion during the consultation, before you commit to a panel."),
+    ],
+    "solar-inverter-installation.html": [
+        ("What does a solar inverter do?",
+         "The inverter converts the DC electricity from your solar panels into AC electricity that your home or business can use. It is the heart of the system."),
+        ("Which inverter should I choose?",
+         "It depends on your system type — hybrid, on-grid or off-grid — and on the size of your system. Our blog has a solar inverter buying guide, and the choice is confirmed during the consultation."),
+        ("Where is the inverter installed?",
+         "Inverters are usually wall-mounted close to the rest of the system. The exact position is planned during installation, with access for checks and maintenance in mind."),
+    ],
+    "solar-battery-solutions.html": [
+        ("What do solar batteries do?",
+         "Batteries store solar energy generated during the day so you can use it in the evening and during outages. They are what make backup power possible."),
+        ("How much backup will my batteries give me?",
+         "It depends on the battery capacity and on which appliances you run during an outage. Backup time is planned around your usage during the consultation."),
+        ("Do solar batteries need maintenance?",
+         "It depends on the battery type. Care guidance for the batteries installed is provided during installation, so you know what to check and when."),
+    ],
+}
 
 # ============================================================ FAQ data ===
 FAQS = [
@@ -925,10 +1032,18 @@ def service_page(rel, slug, title, desc, h1, hero_img, hero_sub, intro_html,
 </section>
 """.format(intro=intro_html, bullets=bullets_html, rel=rel, img=hero_img, h1=h1,
            extra=extra_html, links=rel_links)
+    if slug in SERVICE_FAQS:
+        faqs = SERVICE_FAQS[slug]
+        body += ('<section class="section"><div class="container">'
+                 '<div class="section-head reveal"><span class="eyebrow">Common Questions</span>'
+                 '<h2>Frequently Asked Questions</h2></div>'
+                 + faq_html(faqs) + '</div></section>')
     body += cta_band(rel, "Ready to Explore Solar Energy for Your Property?",
                      "Contact Solar Installation Bahria Town Lahore to discuss your residential or commercial solar requirements.")
     schemas = [org_ld(), service_ld(title.split(" | ")[0], desc, slug),
                breadcrumb_ld([("Home", "index.html"), ("Services", "services.html"), (h1, None)])]
+    if slug in SERVICE_FAQS:
+        schemas.append(faq_ld(SERVICE_FAQS[slug]))
     return page(rel, slug, title, desc, h1, body, schemas, "services",
                 hero_img=hero_img, hero_sub=hero_sub,
                 crumbs=[("Home", "index.html"), ("Services", "services.html"), (h1, None)])

@@ -23,6 +23,7 @@
   --radius-lg: 20px;
   --shadow: 0 18px 45px rgba(0, 0, 0, 0.45);
   --font-head: "Poppins", "Manrope", "Inter", system-ui, sans-serif;
+  --font-display: "Playfair Display", Georgia, "Times New Roman", serif;
   --font-body: "Inter", "Manrope", system-ui, -apple-system, sans-serif;
   --header-h: 76px;
 }
@@ -41,7 +42,8 @@ body {
 img { max-width: 100%; display: block; }
 a { color: var(--gold-soft); text-decoration: none; }
 a:hover { color: var(--gold); }
-h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.22; font-weight: 700; }
+h1, h2 { font-family: var(--font-display); line-height: 1.18; font-weight: 600; letter-spacing: 0.01em; }
+h3, h4 { font-family: var(--font-head); line-height: 1.22; font-weight: 700; }
 p { margin-bottom: 1rem; color: #dbe2ea; }
 p.lead { font-size: 1.12rem; color: var(--gray); }
 strong { color: var(--white); }
@@ -53,15 +55,20 @@ strong { color: var(--white); }
 .section.charcoal { background: var(--charcoal); }
 .section-head { max-width: 760px; margin: 0 auto 48px; text-align: center; }
 .section-head.left { text-align: left; margin-left: 0; }
+.eyebrow::before { content: ""; display: inline-block; width: 26px; height: 2px; background: var(--gold); vertical-align: middle; margin-right: 10px; }
 .eyebrow {
   display: inline-block; font-size: 0.78rem; letter-spacing: 0.22em;
   text-transform: uppercase; color: var(--gold); font-weight: 600; margin-bottom: 12px;
 }
 .section-head h2, .section h2 { font-size: clamp(1.7rem, 3.4vw, 2.5rem); margin-bottom: 14px; }
-.section-head h2 span, h2 span { color: var(--gold); }
+.section-head h2 span, h2 span { background: linear-gradient(115deg, #f2d67c, var(--gold) 45%, #b8912c); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .section-head p { color: var(--gray); font-size: 1.05rem; }
 .gold-rule { width: 64px; height: 3px; background: linear-gradient(90deg, var(--gold), transparent); border: 0; margin: 18px 0 22px; border-radius: 2px; }
 .section-head .gold-rule { margin: 18px auto 22px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 4px; }
+.skip-link { position: absolute; left: -9999px; top: 0; z-index: 300; background: var(--gold); color: #0a1420; padding: 10px 18px; border-radius: 0 0 10px 0; font-weight: 600; }
+.skip-link:focus { left: 0; }
 
 /* ---------- Buttons ---------- */
 .btn {
@@ -73,7 +80,7 @@ strong { color: var(--white); }
 }
 .btn:hover { transform: translateY(-2px); }
 .btn-gold {
-  background: linear-gradient(135deg, var(--gold), #b8912c); color: #0a1420;
+  background: linear-gradient(135deg, #f0d47e, var(--gold) 45%, #b8912c); color: #0a1420; letter-spacing: 0.02em;
   box-shadow: 0 10px 26px rgba(212, 175, 55, 0.35);
 }
 .btn-gold:hover { color: #0a1420; box-shadow: 0 14px 32px rgba(212, 175, 55, 0.45); }
@@ -163,9 +170,11 @@ strong { color: var(--white); }
   background: linear-gradient(100deg, rgba(7, 20, 38, 0.94) 0%, rgba(7, 20, 38, 0.78) 46%, rgba(7, 20, 38, 0.35) 100%),
               linear-gradient(0deg, var(--navy) 0%, rgba(7, 20, 38, 0) 30%);
 }
+.hero::before { content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background: radial-gradient(640px 300px at 82% 12%, rgba(212, 175, 55, 0.14), transparent 65%); }
 .hero-inner { position: relative; z-index: 1; max-width: 720px; }
 .hero h1 { font-size: clamp(2.1rem, 5vw, 3.6rem); margin: 14px 0 10px; }
-.hero h1 span { color: var(--gold); }
+.hero h1 span { background: linear-gradient(115deg, #f2d67c, var(--gold) 45%, #b8912c); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .hero .sub { font-family: var(--font-head); font-size: clamp(1.1rem, 2.2vw, 1.45rem); color: var(--gold-soft); font-weight: 500; margin-bottom: 18px; }
 .hero p.desc { font-size: 1.1rem; color: #d5dde7; max-width: 620px; margin-bottom: 30px; }
 .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 34px; }
