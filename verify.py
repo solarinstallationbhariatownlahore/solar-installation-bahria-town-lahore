@@ -211,7 +211,7 @@ try:
     # 9. sitemap + robots
     st, sm = get("/sitemap.xml")
     locs = re.findall(r"<loc>([^<]+)</loc>", sm) if st == 200 else []
-    check("sitemap.xml 200 + absolute URLs", st == 200 and len(locs) == 26 and all(l.startswith("https://solarinstallationbhariatownlahore.github.io/") for l in locs),
+    check("sitemap.xml 200 + absolute URLs", st == 200 and len(locs) == len([p for p in pages if p != "404.html"]) and all(l.startswith("https://solarinstallationbhariatownlahore.github.io/") for l in locs),
           f"{len(locs)} URLs")
     st, rb = get("/robots.txt")
     check("robots.txt 200 + sitemap line", st == 200 and "sitemap.xml" in rb, rb.strip().splitlines()[-1] if rb else "")

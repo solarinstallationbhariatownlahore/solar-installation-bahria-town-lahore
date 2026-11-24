@@ -119,6 +119,11 @@ def local_ld():
             "postalCode": "54000",
             "addressCountry": "PK",
         },
+        "hasMap": "https://www.google.com/maps?cid=17411783398733912742",
+        "areaServed": [
+            {"@type": "Place", "name": "Bahria Town Lahore"},
+            {"@type": "City", "name": "Lahore"},
+        ],
         "sameAs": [url for _, url, _ in SOCIAL],
     }
     if SITE_URL:
@@ -297,7 +302,7 @@ def footer_html(rel):
     </div>
     <div class="footer-bottom">
       <span>© <span id="year">2026</span> {biz}. All rights reserved.</span>
-      <span><a href="{rel}privacy-policy.html">Privacy Policy</a> &nbsp;·&nbsp; <a href="{rel}terms-and-conditions.html">Terms and Conditions</a></span>
+      <span><a href="{rel}privacy-policy.html">Privacy Policy</a> &nbsp;·&nbsp; <a href="{rel}terms-and-conditions.html">Terms and Conditions</a> &nbsp;·&nbsp; <a href="{rel}sitemap.html">Sitemap</a></span>
     </div>
   </div>
 </footer>
@@ -833,6 +838,8 @@ def build_home():
       <div class="card reveal"><h3>Hybrid vs On-Grid Solar</h3><p>The real differences between the two most common system types — and who each suits.</p><a class="card-link" href="blog/hybrid-vs-on-grid-solar-systems.html">Read the Guide →</a></div>
       <div class="card reveal"><h3>How to Choose Solar Panels</h3><p>What actually matters when comparing panels — beyond the brochure.</p><a class="card-link" href="blog/how-to-choose-solar-panels.html">Read the Guide →</a></div>
       <div class="card reveal"><h3>Solar Battery Storage Explained</h3><p>What batteries do, what they cannot do, and how to think about backup.</p><a class="card-link" href="blog/solar-battery-storage-explained.html">Read the Guide →</a></div>
+      <div class="card reveal"><h3>Solar System for a 5 Marla House</h3><p>How a solar system is planned around a compact Bahria Town home — load, roof and backup.</p><a class="card-link" href="blog/solar-system-for-5-marla-house-bahria-town.html">Read the Guide →</a></div>
+      <div class="card reveal"><h3>Net Metering in Bahria Town Lahore</h3><p>How extra solar electricity flows back to the grid — and who it suits.</p><a class="card-link" href="blog/net-metering-bahria-town-lahore.html">Read the Guide →</a></div>
     </div>
     <div style="text-align:center;margin-top:34px"><a class="btn btn-outline" href="blog.html">Visit the Blog</a></div>
   </div>
@@ -1489,6 +1496,12 @@ BLOG_INDEX = [
     ("solar-installation-planning-in-lahore", "Solar Installation Planning in Lahore",
      "Solar Installation Lahore", "Before you buy anything: load, roof, system type, installer and the questions to ask — a planning checklist for Lahore homeowners.",
      "assets/images/modern-house-flat-roof-solar.jpg", "Modern house with rooftop solar panels"),
+    ("solar-system-for-5-marla-house-bahria-town", "Solar System for a 5 Marla House",
+     "Bahria Town Solar Guides", "A 5 Marla house in Bahria Town Lahore has its own load, roof and routine — here is how a solar system is planned around it, without guessing.",
+     "assets/images/residential-rooftop-solar-panels.jpg", "Rooftop solar panels on a house in Bahria Town Lahore"),
+    ("net-metering-bahria-town-lahore", "Net Metering in Bahria Town Lahore",
+     "Solar Energy", "Net metering lets extra solar electricity flow back to the grid. Here is how it works for homes in Bahria Town Lahore.",
+     "assets/images/solar-panels-field-sunset.jpg", "Solar panels at sunset in a field"),
 ]
 
 def build_blog_index():
@@ -2044,9 +2057,70 @@ def build_articles():
 <p>A good installation ends with a confident homeowner, not a confused one. That is the standard we hold ourselves to — and it is the standard you should expect from any installer you choose.</p>""",
         ["solar-energy-for-pakistani-homes", "how-solar-energy-works"])
 
+
+    articles["solar-system-for-5-marla-house-bahria-town.html"] = article_page(
+        "solar-system-for-5-marla-house-bahria-town", "Solar System for a 5 Marla House", "Bahria Town Solar Guides",
+        "A 5 Marla house has its own load, roof and routine — here is how a solar system is planned around it, without guessing.",
+        "assets/images/residential-rooftop-solar-panels.jpg", "Rooftop solar panels on a house in Bahria Town Lahore",
+        [('why', 'Why 5 Marla Homes Are Different'), ('size', 'What Decides the System Size'), ('type', 'Which System Type Fits'), ('backup', 'Batteries and Backup'), ('steps', 'Planning Your System, Step by Step'), ('consult', 'Start With a Free Consultation')],
+        '<p>A 5 Marla house in Bahria Town Lahore is a compact family home — and that changes how a solar system should be planned. The roof is smaller than a 10 Marla or 1 Kanal house, the load is different, and the daily routine is its own. This guide explains what actually decides the right system for a 5 Marla home, in plain language.</p>\n<h2 id="why">Why 5 Marla Homes Are Different</h2>\n<p>Most 5 Marla houses in Bahria Town share the same shape: two or three bedrooms, a lounge, a kitchen, and a roof that is large enough for panels but not unlimited. That roof is the first thing to look at. Its size decides how many panels can be mounted; its direction and shading decide how well they will perform. Most Bahria Town roofs, flat or sloped, have good sun exposure.</p>\n<p>The second thing is the load. A 5 Marla home typically runs lights, ceiling fans, a fridge, a television, phone charging and a water motor — and often one or two air conditioners in summer. The exact mix varies from family to family, which is why two identical-looking 5 Marla houses can need different systems.</p>\n<h2 id="size">What Decides the System Size</h2>\n<p>Three things decide the size of the system: how much electricity you use, when you use it, and how much backup you want. Daytime-heavy usage is the easiest for solar to cover, because the panels generate while you use power. Evening-heavy usage needs batteries, because the sun has set by the time the load peaks.</p>\n<p>Your roof is the third factor. If the roof can hold the panels your load needs, the plan is straightforward. If it cannot, the plan has to be honest about what is possible — fewer panels, a smaller system, or a different layout. A good installer tells you that before you commit, not after the panels are on the roof.</p>\n<p>There is no single size that fits every 5 Marla house. The right system depends on your load, your appliances, your roof space and whether you want battery backup — during a consultation we review your load and usage pattern and then suggest a size that fits your home.</p>\n<h2 id="type">Which System Type Fits</h2>\n<p>A hybrid system is the most common choice for Lahore homes, and for good reason: it combines daytime generation with stored energy for evenings and outages. When the grid goes down, a hybrid system can run on battery power, so the essentials keep working. For a 5 Marla family home, that combination — solar in the day, batteries in the evening — is usually the right shape.</p>\n<p>An on-grid system suits a home with a stable grid connection that mainly wants daytime generation. It has no batteries, so it costs less and is simpler — but it does not run during an outage. An off-grid system is for properties without a reliable grid connection at all. Our guide on <a href="hybrid-vs-on-grid-solar-systems.html">hybrid vs on-grid solar systems</a> compares the two most common types in more detail.</p>\n<h2 id="backup">Batteries and Backup</h2>\n<p>Batteries are what make evening power and outage backup possible. The question to ask is not how big a battery you can buy, but what you need to keep running when the power goes out, and for how long. Lights, fans, the fridge and phone charging are the usual essentials. Air conditioning uses far more than lights and fans combined, so be honest about whether cooling is part of your backup plan.</p>\n<p>A battery sized to your real essential loads costs far less than one sized to run everything. Our guide on <a href="solar-battery-storage-explained.html">solar battery storage</a> explains capacity and backup in more detail.</p>\n<h2 id="steps">Planning Your System, Step by Step</h2>\n<p>The process is the same one we follow for every home. First, a consultation: we talk about your property, your electricity usage and what you want from solar. Then a property and energy assessment: we look at your roof, your load and your daily usage pattern. Then system planning: panels, inverter, batteries and layout, matched to your home. Then installation, and finally a handover where we explain the system and how to look after it.</p>\n<p>None of this needs a decision from you on the first call. The consultation is free, and its purpose is to give you a clear plan for your property.</p>\n<h2 id="consult">Start With a Free Consultation</h2>\n<p>If you live in a 5 Marla house in Bahria Town Lahore and are thinking about solar, the right first step is a conversation. <a href="../contact.html">Contact us for a free consultation</a> — by phone, WhatsApp or in person at our Sector C office — and we will review your load and roof and suggest a system that fits your home. You can also read about our <a href="../residential-solar-installation.html">residential solar installation</a> service and our guide to <a href="solar-energy-for-pakistani-homes.html">solar energy for Pakistani homes</a>.</p>',
+        ["solar-energy-for-pakistani-homes", "hybrid-vs-on-grid-solar-systems"])
+
+    articles["net-metering-bahria-town-lahore.html"] = article_page(
+        "net-metering-bahria-town-lahore", "Net Metering in Bahria Town Lahore", "Solar Energy",
+        "Net metering lets extra solar electricity flow back to the grid. Here is how it works for homes in Bahria Town Lahore.",
+        "assets/images/solar-panels-field-sunset.jpg", "Solar panels at sunset in a field",
+        [('what', 'What Net Metering Is'), ('how', 'How It Works, Day to Day'), ('suits', 'Who Net Metering Suits'), ('process', 'The Process, in Brief'), ('ask', 'What to Ask During Your Consultation')],
+        '<p>Net metering is one of the most useful parts of going solar in Pakistan — and one of the least understood. In simple terms, it lets the extra electricity your solar panels generate flow back to the grid, instead of going to waste. This guide explains how net metering works for homes in Bahria Town Lahore, who it suits, and what the process looks like.</p>\n<h2 id="what">What Net Metering Is</h2>\n<p>Solar panels generate the most electricity in the middle of the day, when the sun is strongest. Many homes use less power at that hour than their panels produce — the family is out, the heavy appliances are off, and the surplus has nowhere to go. Net metering gives it somewhere to go: the electricity grid.</p>\n<p>Under a net metering arrangement, the extra units your system generates are exported to the grid, and the grid supplies your home in the evening and at night, when the panels are not generating. Instead of the surplus being wasted, it is accounted for against the electricity you draw from the grid. The grid, in effect, acts as a store for your daytime surplus.</p>\n<p>Lahore\'s long sunny days make this work well. A roof in Bahria Town with good sun exposure can generate far more in the middle of the day than the home uses at that hour — which is exactly the surplus net metering is designed to capture.</p>\n<h2 id="how">How It Works, Day to Day</h2>\n<p>On a normal day the pattern is simple. In the morning the panels start generating. Your home uses what it needs — the fridge, the fans, whatever is running — and the surplus flows out to the grid. In the evening, when the panels stop, your home draws power back from the grid as usual.</p>\n<p>A bidirectional meter records both directions: the electricity you export and the electricity you import. That record is what the net metering arrangement is based on. Your system, your meter and your grid connection work together — which is why the system design and the metering arrangement are planned together, not separately.</p>\n<p>If you have monitoring — an inverter display or a phone app — you can watch this happen: generation rising through the morning, export in the middle of the day, and import again in the evening. Over weeks and months, that picture tells you whether your system is sized the way it should be.</p>\n<h2 id="suits">Who Net Metering Suits</h2>\n<p>Net metering suits homes whose panels produce more than the home uses during the day. That is common in Bahria Town, where roofs have good sun exposure and daytime loads are often modest. It works with on-grid systems and with hybrid systems — both are connected to the grid and can export surplus power.</p>\n<p>It suits homes less well if the daytime load already uses everything the panels produce, or if the property has no reliable grid connection at all — in that case an off-grid system is the better choice. It is also worth knowing that net metering alone does not provide backup during an outage: when the grid goes down, a grid-connected system shuts down. Backup is what batteries are for, and it is a separate decision from net metering.</p>\n<p>Whether net metering makes sense for your home is something we discuss during the consultation, once we know your load and your roof.</p>\n<h2 id="process">The Process, in Brief</h2>\n<p>The process starts with the system itself: a consultation, a load and roof assessment, and a system design. The net metering arrangement is discussed as part of that design, because the system size and the metering go together.</p>\n<p>After installation, the net metering application and the meter arrangement follow. What the process involves and what is needed from you depends on your property and your electricity provider, so we go through it during the consultation rather than promising a fixed timeline here. What we can promise is that we explain each step before it happens, so there are no surprises.</p>\n<h2 id="ask">What to Ask During Your Consultation</h2>\n<p>When you talk to us about net metering, these are the questions worth asking: does it apply to my property? What does the process involve, and what is needed from me? How should the system be sized so the arrangement works in my favour? And what happens to my backup power during an outage?</p>\n<p><a href="../contact.html">Contact us for a free consultation</a> and we will go through all of it for your home. You can also read our guides on <a href="hybrid-vs-on-grid-solar-systems.html">hybrid vs on-grid systems</a> and <a href="solar-energy-for-pakistani-homes.html">solar energy for Pakistani homes</a>, or look at our <a href="../on-grid-solar-systems.html">on-grid solar systems</a> and <a href="../hybrid-solar-systems.html">hybrid solar systems</a> pages.</p>',
+        ["hybrid-vs-on-grid-solar-systems", "solar-energy-for-pakistani-homes"])
+
     return articles
 
 # ============================================================ SITEMAP =====
+
+def build_sitemap_page():
+    rel = ""
+    groups = [
+        ("Main Pages", [("Home", "index.html"), ("About Us", "about.html"),
+                        ("Contact Us", "contact.html")]),
+        ("Services", [("Solar Installation Services", "services.html"),
+                      ("Residential Solar Installation", "residential-solar-installation.html"),
+                      ("Commercial Solar Installation", "commercial-solar-installation.html"),
+                      ("Hybrid Solar Systems", "hybrid-solar-systems.html"),
+                      ("On-Grid Solar Systems", "on-grid-solar-systems.html"),
+                      ("Off-Grid Solar Systems", "off-grid-solar-systems.html"),
+                      ("Solar Panel Installation", "solar-panel-installation.html"),
+                      ("Solar Inverter Installation", "solar-inverter-installation.html"),
+                      ("Solar Battery Solutions", "solar-battery-solutions.html")]),
+        ("Locations", [("Solar Installation in Bahria Town Lahore", "solar-installation-bahria-town-lahore.html"),
+                       ("Solar Installation in Lahore", "solar-installation-lahore.html")]),
+        ("Projects & Blog", [("Our Projects", "projects.html"), ("Blog & Solar Energy Guides", "blog.html")]
+                         + [(t, "blog/{}.html".format(s)) for s, t, _, _, _, _ in BLOG_INDEX]),
+        ("Legal", [("Privacy Policy", "privacy-policy.html"),
+                   ("Terms and Conditions", "terms-and-conditions.html"),
+                   ("Sitemap", "sitemap.html")]),
+    ]
+    sections = []
+    for name, links in groups:
+        items = "\n".join(
+            '<li><a href="{rel}{p}">{n}</a></li>'.format(rel=rel, p=p, n=n)
+            for n, p in links)
+        sections.append(
+            '<h2 style="font-size:1.35rem;margin:30px 0 12px">{}</h2>'
+            '<ul style="list-style:none;margin:0 0 8px 0">'
+            '{}'
+            '</ul>'.format(name, items))
+    body = ('<section class="section"><div class="container legal">'
+            '<span class="eyebrow">Sitemap</span>'
+            '<p>Every page on the Solar Installation Bahria Town Lahore website — services, '
+            'locations, projects, blog guides and legal pages.</p>'
+            + "\n".join(sections) + '</div></section>')
+    schemas = [org_ld(), breadcrumb_ld([("Home", "index.html"), ("Sitemap", None)])]
+    return page(rel, "sitemap.html", "Sitemap — Solar Installation Bahria Town Lahore",
+                "A complete list of every page on the Solar Installation Bahria Town Lahore website — services, locations, blog guides and legal pages.",
+                "Sitemap", body, schemas, "",
+                crumbs=[("Home", "index.html"), ("Sitemap", None)])
+
 SITEMAP_PAGES = [
     "index.html", "about.html", "services.html",
     "residential-solar-installation.html", "commercial-solar-installation.html",
@@ -2058,7 +2132,8 @@ SITEMAP_PAGES = [
     "blog/how-to-choose-solar-panels.html", "blog/solar-inverter-buying-guide.html",
     "blog/solar-battery-storage-explained.html", "blog/solar-panel-maintenance.html",
     "blog/solar-energy-for-pakistani-homes.html", "blog/solar-installation-planning-in-lahore.html",
-    "contact.html", "privacy-policy.html", "terms-and-conditions.html",
+    "blog/solar-system-for-5-marla-house-bahria-town.html", "blog/net-metering-bahria-town-lahore.html",
+    "contact.html", "privacy-policy.html", "terms-and-conditions.html", "sitemap.html",
 ]
 
 def build_sitemap():
@@ -2096,6 +2171,7 @@ def main():
     built.append(write("contact.html", build_contact()))
     built.append(write("privacy-policy.html", build_privacy()))
     built.append(write("terms-and-conditions.html", build_terms()))
+    built.append(write("sitemap.html", build_sitemap_page()))
     built.append(write("404.html", build_404()))
     built.append(write("sitemap.xml", build_sitemap()))
     built.append(write("robots.txt", build_robots()))
